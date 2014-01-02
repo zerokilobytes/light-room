@@ -17,10 +17,10 @@ Entity.prototype = {
         var height = this.context.settings.screeSize.height;
 
         if (this.canRotate) {
-            this.skin.getBitmap().rotation = this.body.GetAngle() * (180 / Math.PI);
+            this.skin.rotation = this.body.GetAngle() * (180 / Math.PI);
         }
-        this.skin.getBitmap().x = this.body.GetWorldCenter().x * scale;
-        this.skin.getBitmap().y = this.body.GetWorldCenter().y * scale;
+        this.skin.x = this.body.GetWorldCenter().x * scale;
+        this.skin.y = this.body.GetWorldCenter().y * scale;
 
         if (this.type === "enemy") {
             if (this.getAbsolutePosition().x < -10
@@ -34,16 +34,10 @@ Entity.prototype = {
         }
     },
     createSkin: function(image, positionVector, centerVector) {
-        var skin = new EntitySkin(image, positionVector, centerVector, this.scaleVector);
-        return skin;
+        
     },
     createEntityBody: function(postion, scale) {
-        var scaleX = this.bodyVector.x * this.scaleVector.x;
-        var scaleY = this.bodyVector.y * this.scaleVector.y;
-        var bodyVector = new Vector2D(scaleX, scaleY);
-        var body = new EntityBody(this.context, postion, bodyVector, scale);
-        body.body.SetUserData(this);
-        return body;
+        
     },
     destroy: function() {
         this.enabled = false;

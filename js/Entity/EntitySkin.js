@@ -1,30 +1,23 @@
-var EntitySkin = function(image, positionVector, centerVector, scaleVector) {
-    this.image = image;
-    this.positionVector = positionVector;
-    this.centerVector = centerVector;
-    this.scaleVector = scaleVector;
-    this.bitmap = null;
-
-    this.init();
+var EntitySkin = function() {
 };
 
 EntitySkin.prototype = {
-    init: function() {
-        this.bitmap = new createjs.Bitmap(this.image);
+};
 
-        //Initialize Bitmap
-        this.bitmap.x = this.positionVector.x;
-        this.bitmap.y = this.positionVector.y;
-        this.bitmap.regX = this.centerVector.x;
-        this.bitmap.regY = this.centerVector.y;
-        this.bitmap.snapToPixel = true;
-        this.bitmap.mouseEnabled = true;
+EntitySkin.createBitmap = function(image, positionVector) {
+    var bitmap = new createjs.Bitmap(image);
+    var scaleVector = {x: 1, y: 1};
 
-        //Scale Image
-        this.bitmap.scaleX = this.scaleVector.x;
-        this.bitmap.scaleY = this.scaleVector.y;
-    },
-    getBitmap: function() {
-        return this.bitmap;
-    }
+    //Initialize Bitmap
+    bitmap.x = positionVector.x;
+    bitmap.y = positionVector.y;
+    bitmap.regX = positionVector.x / 2;
+    bitmap.regY = positionVector.y / 2;
+    bitmap.snapToPixel = true;
+    bitmap.mouseEnabled = true;
+
+    //Scale Image
+    bitmap.scaleX = scaleVector.x;
+    bitmap.scaleY = scaleVector.y;
+    return bitmap;
 };
