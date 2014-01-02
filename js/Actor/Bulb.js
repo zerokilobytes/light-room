@@ -8,7 +8,7 @@ Bulb.prototype = {
         Entity.prototype.init.call(this);
 
         this.type = "enemy";
-        this.bodyVector = new Vector2D(154, 255);
+        this.bodyVector = new Vector2D(100, 100);
         this.canRotate = false;
     },
     show: function(positionVector) {
