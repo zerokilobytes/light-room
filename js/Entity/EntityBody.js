@@ -53,12 +53,5 @@ EntityBody.getPolygonShape = function(context, postion, sizeVector) {
 
     var body = context.world.CreateBody(birdBodyDef);
     body.CreateFixture(birdFixture);
-    //this.body.SetUserData(this);
-
-    //var angle = MathFunc.getRandomArbitrary(180, 360) * Math.PI / 180;
-    //var velocityX = MathFunc.getRandomArbitrary(2, 10) * -1;
-    //var velocityY = MathFunc.getRandomArbitrary(0.1, 2.0) * -1;
-    //body.SetLinearVelocity(new b2Vec2(Math.cos(angle) * velocityX, Math.sin(angle) * velocityY));
-    //body.SetAngle(angle);
     return body;
 };

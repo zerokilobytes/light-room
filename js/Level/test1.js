@@ -6,6 +6,10 @@ test1 = {
         {
             type: Bulb,
             data: {x: 300, y: 600, rotation: 180}
+        },
+        {
+            type: Pendulum,
+            data: {x: 200, y: 100, rotation: 0}
         }
     ],
     actors: [],
@@ -13,7 +17,7 @@ test1 = {
         {
             intervals: 0,
             event: function() {
-   
+
             }
         }
     ]
