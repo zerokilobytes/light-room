@@ -19,8 +19,8 @@ Entity.prototype = {
         if (this.canRotate) {
             this.skin.rotation = this.body.GetAngle() * (180 / Math.PI);
         }
-        this.skin.x = this.body.GetWorldCenter().x * scale;
-        this.skin.y = this.body.GetWorldCenter().y * scale;
+        this.skin.x = (this.body.GetWorldCenter().x * scale) + this.bodyVector.x / 2;
+        this.skin.y = (this.body.GetWorldCenter().y * scale) + this.bodyVector.y / 2;
 
         if (this.type === "enemy") {
             if (this.getAbsolutePosition().x < -10
@@ -34,10 +34,10 @@ Entity.prototype = {
         }
     },
     createSkin: function(image, positionVector, centerVector) {
-        
+
     },
     createEntityBody: function(postion, scale) {
-        
+
     },
     destroy: function() {
         this.enabled = false;

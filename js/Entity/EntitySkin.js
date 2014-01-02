@@ -11,13 +11,13 @@ EntitySkin.createBitmap = function(image, positionVector) {
     //Initialize Bitmap
     bitmap.x = positionVector.x;
     bitmap.y = positionVector.y;
-    bitmap.regX = positionVector.x / 2;
-    bitmap.regY = positionVector.y / 2;
+    bitmap.regX = positionVector.x / 1;
+    bitmap.regY = positionVector.y / 1;
     bitmap.snapToPixel = true;
     bitmap.mouseEnabled = true;
 
     //Scale Image
-    bitmap.scaleX = scaleVector.x;
-    bitmap.scaleY = scaleVector.y;
+    //bitmap.scaleX = scaleVector.x;
+    //bitmap.scaleY = scaleVector.y;
     return bitmap;
 };

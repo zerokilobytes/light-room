@@ -8,7 +8,7 @@ Bulb.prototype = {
         Entity.prototype.init.call(this);
 
         this.type = "enemy";
-        this.bodyVector = new Vector2D(100, 100);
+        this.bodyVector = new Vector2D(154, 255);
         this.canRotate = false;
     },
     show: function(positionVector) {
@@ -17,10 +17,10 @@ Bulb.prototype = {
     spawn: function(positionVector) {
         this.enabled = true;
         var image = Resource.get('bulb');
-        
-        this.createSkin(image, positionVector);
+
+        this.createSkin(image, this.bodyVector);
         this.createEntityBody(positionVector);
-        
+
         this.context.stage.addChild(this.skin);
 
         Entity.prototype.spawn.call(this);
@@ -35,15 +35,15 @@ Bulb.prototype = {
         return Entity.prototype.getBody.call(this);
     },
     createSkin: function(image, positionVector) {
-        this.skin =  EntitySkin.createBitmap(image, positionVector);
+        this.skin = EntitySkin.createBitmap(image, positionVector);
     },
     createEntityBody: function(postion) {
         var scale = this.context.settings.scale;
-        var pos = new Vector2D(postion.x/scale, postion.y/scale);
-        var vec = new Vector2D(this.bodyVector.x/scale, this.bodyVector.y/scale);
-        
+        var pos = new Vector2D(postion.x / scale, postion.y / scale);
+        var vec = new Vector2D((this.bodyVector.x / 2.0) / scale, (this.bodyVector.y / 2.0) / scale);
+
         var body = EntityBody.getPolygonShape(this.context, pos, vec);
-       
+
         body.SetUserData(this);
         body.SetAngle(0);
         this.body = body;
