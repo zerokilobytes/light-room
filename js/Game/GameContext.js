@@ -39,6 +39,7 @@ GameContext.prototype = {
         Visual.register(this);
         Sound.register(this);
         MouseManager.register(this);
+        PhysicsManager.register(this);
         EventMonitor.register(this);
     },
     isPlaying: function() {
