@@ -89,3 +89,35 @@ MouseManager.getBody = function(e, includeStatic) {
     _world.QueryAABB(GetBodyCallback, aabb);
     return body;
 };
+
+MouseManager.getBodyAtXY = function(vector, includeStatic) {
+    var _world = MouseManager.context.world;
+    var _mousePVec = new b2Vec2();
+    _mouseXWorldPhys = vector.x;
+    _mouseYWorldPhys = vector.y;
+
+    _mousePVec.Set(_mouseXWorldPhys, _mouseYWorldPhys);
+    var aabb = new b2AABB();
+    aabb.lowerBound.Set(_mouseXWorldPhys - 0.001, _mouseYWorldPhys - 0.001);
+    aabb.upperBound.Set(_mouseXWorldPhys + 0.001, _mouseYWorldPhys + 0.001);
+    var body = null;
+    var fixture;
+
+    // Query the world for overlapping shapes.
+    function GetBodyCallback(fixture)
+    {
+        var shape = fixture.GetShape();
+        if (fixture.GetBody().GetType() !== b2Body.b2_staticBody || includeStatic)
+        {
+            var inside = shape.TestPoint(fixture.GetBody().GetTransform(), _mousePVec);
+            if (inside)
+            {
+                body = fixture.GetBody();
+                return false;
+            }
+        }
+        return true;
+    }
+    _world.QueryAABB(GetBodyCallback, aabb);
+    return body;
+};
