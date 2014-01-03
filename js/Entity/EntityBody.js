@@ -39,12 +39,11 @@ EntityBody.getPolygonShape = function(context, postion, sizeVector) {
     var polygonShape = new b2PolygonShape();
     polygonShape.SetAsBox(sizeVector.x, sizeVector.y);
 
-
     var birdFixture = new b2FixtureDef;
 
-    birdFixture.density = MathFunc.getRandomArbitrary(1, 5);
-    birdFixture.friction = MathFunc.getRandomArbitrary(0.1, 1);
-    birdFixture.restitution = MathFunc.getRandomArbitrary(0.2, 1);
+    birdFixture.density = 5;
+    birdFixture.friction = 0.1;
+    birdFixture.restitution = 0;
     birdFixture.shape = polygonShape;
     var birdBodyDef = new b2BodyDef;
     birdBodyDef.type = b2Body.b2_dynamicBody;

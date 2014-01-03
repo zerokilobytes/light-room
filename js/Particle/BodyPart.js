@@ -16,7 +16,7 @@ BodyPart.prototype = {
     },
     spawn: function(positionVector) {
         this.enabled = true;
-        var scale = this.context.settings.scale;
+        var scale = Global.scale;
 
         this.skin = this.createSkin(Resource.get(this.partName), positionVector, this.bodyVector);
         this.body = this.createEntityBody(positionVector, scale);

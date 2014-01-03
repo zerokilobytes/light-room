@@ -5,7 +5,7 @@ test1 = {
     fixtures: [
         {
             type: Bulb,
-            data: {x: 300, y: 600, rotation: 180}
+            data: {x: 300, y: 600, rotation: 90}
         },
         {
             type: Pendulum,

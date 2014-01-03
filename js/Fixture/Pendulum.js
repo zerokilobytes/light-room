@@ -34,8 +34,8 @@ Pendulum.prototype = {
         MouseManager.move(this, function(e) {
             var _world = _this.context.world;
 
-            _mouseXWorldPhys = e.pageX / 60;
-            _mouseYWorldPhys = e.pageY / 60;
+            _mouseXWorldPhys = e.pageX / Global.scale;
+            _mouseYWorldPhys = e.pageY / Global.scale;
 
             if (MouseManager.isMousedown && !_this.mouseJoint) {
 
@@ -68,18 +68,6 @@ Pendulum.prototype = {
                 _this.mouseJoint.SetTarget(p2);
             }
         });
-    },
-    mouseDestroy: function() {
-        if (!Input.mouseDown && Input.isKeyPressed(68/*D*/))
-        {
-            var body = GetBodyAtMouse(true);
-
-            if (body)
-            {
-                _world.DestroyBody(body);
-                return;
-            }
-        }
     },
     update: function() {
         Entity.prototype.update.call(this);
@@ -118,7 +106,7 @@ Pendulum.prototype = {
     },
     createEntityBody: function(data) {
         var world = this.context.world;
-        var worldScale = this.context.settings.scale;
+        var worldScale = Global.scale;
         // number of links forming the rope
         var links = 6;
         // according to the number of links, I am setting the length of a single chain piace

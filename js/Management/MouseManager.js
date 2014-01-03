@@ -61,8 +61,8 @@ MouseManager.move = function(context, callback) {
 MouseManager.getBody = function(e, includeStatic) {
     var _world = MouseManager.context.world;
     var _mousePVec = new b2Vec2();
-    _mouseXWorldPhys = e.pageX / 60;
-    _mouseYWorldPhys = e.pageY / 60;
+    _mouseXWorldPhys = e.pageX / Global.scale;
+    _mouseYWorldPhys = e.pageY / Global.scale;
 
     _mousePVec.Set(_mouseXWorldPhys, _mouseYWorldPhys);
     var aabb = new b2AABB();

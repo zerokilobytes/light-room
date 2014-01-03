@@ -12,7 +12,7 @@ Entity.prototype = {
 
     },
     update: function() {
-        var scale = this.context.settings.scale;
+        var scale = Global.scale;
         var width = this.context.settings.screeSize.width;
         var height = this.context.settings.screeSize.height;
 
@@ -20,20 +20,20 @@ Entity.prototype = {
             this.skin.rotation = this.body.GetAngle() * (180 / Math.PI);
         }
         if (this.skin) {
-            this.skin.x = (this.body.GetWorldCenter().x * scale) + this.bodyVector.x / 2;
-            this.skin.y = (this.body.GetWorldCenter().y * scale) + this.bodyVector.y / 2;
+            this.skin.x = (this.body.GetWorldCenter().x * scale);
+            this.skin.y = (this.body.GetWorldCenter().y * scale);
         }
 
         /*if (this.type === "enemy") {
-            if (this.getAbsolutePosition().x < -10
-                    || this.getAbsolutePosition().x > width + 10)
-            {
-                this.destroy();
-            } else if (this.getAbsolutePosition().y > height) {
-                this.context.removeLife(this.getAbsolutePosition());
-                this.destroy();
-            }
-        }*/
+         if (this.getAbsolutePosition().x < -10
+         || this.getAbsolutePosition().x > width + 10)
+         {
+         this.destroy();
+         } else if (this.getAbsolutePosition().y > height) {
+         this.context.removeLife(this.getAbsolutePosition());
+         this.destroy();
+         }
+         }*/
     },
     createSkin: function(image, positionVector, centerVector) {
 
@@ -59,7 +59,7 @@ Entity.prototype = {
         this.context.modelManager.pop(position);
     },
     getAbsolutePosition: function() {
-        var scale = this.context.settings.scale;
+        var scale = Global.scale;
         var box2dVec = this.body.GetPosition();
         return new Vector2D(box2dVec.x * scale, box2dVec.y * scale);
     }

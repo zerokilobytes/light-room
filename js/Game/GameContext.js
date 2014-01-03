@@ -91,7 +91,7 @@ GameContext.prototype = {
     addDebug: function() {
         var debugDraw = new b2DebugDraw();
         debugDraw.SetSprite(debugContext);
-        debugDraw.SetDrawScale(this.settings.scale);
+        debugDraw.SetDrawScale(Global.scale);
         debugDraw.SetFillAlpha(0.7);
         debugDraw.SetLineThickness(1.0);
         debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);

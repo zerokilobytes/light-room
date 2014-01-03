@@ -31,7 +31,7 @@ Integrator.prototype = {
         this.wall(this.settings.screeSize.width / 2, (floorHeight / 2), this.settings.screeSize.width, floorHeight + floorHeight);
     },
     wall: function(pX, pY, w, h) {
-        var worldScale = this.settings.scale;
+        var worldScale = Global.scale;
         var bodyDef = new b2BodyDef();
         bodyDef.position.Set(pX / worldScale, pY / worldScale);
         bodyDef.userData = {type: "wall"};
@@ -56,23 +56,23 @@ Integrator.prototype = {
         fixDef.shape = new b2PolygonShape;
 
         //create top
-        fixDef.shape.SetAsBox(wallCenterX / this.settings.scale, wallWidth / this.settings.scale);
-        bodyDef.position.Set(wallCenterX / this.settings.scale, wallWidth / this.settings.scale);
+        fixDef.shape.SetAsBox(wallCenterX / Global.scale, wallWidth / Global.scale);
+        bodyDef.position.Set(wallCenterX / Global.scale, wallWidth / Global.scale);
         this.world.CreateBody(bodyDef).CreateFixture(fixDef).SetUserData("ceiling");
 
         //create left
-        fixDef.shape.SetAsBox(wallWidth / this.settings.scale, wallCenterY / this.settings.scale);
-        bodyDef.position.Set(wallWidth / this.settings.scale, wallCenterY / this.settings.scale);
+        fixDef.shape.SetAsBox(wallWidth / Global.scale, wallCenterY / Global.scale);
+        bodyDef.position.Set(wallWidth / Global.scale, wallCenterY / Global.scale);
         this.world.CreateBody(bodyDef).CreateFixture(fixDef).SetUserData("wall");
 
         //create right
-        fixDef.shape.SetAsBox(wallWidth / this.settings.scale, wallCenterY / this.settings.scale);
-        bodyDef.position.Set((wallCenterX * 2 - wallWidth) / this.settings.scale, wallCenterY / this.settings.scale);
+        fixDef.shape.SetAsBox(wallWidth / Global.scale, wallCenterY / Global.scale);
+        bodyDef.position.Set((wallCenterX * 2 - wallWidth) / Global.scale, wallCenterY / Global.scale);
         this.world.CreateBody(bodyDef).CreateFixture(fixDef).SetUserData("wall");
 
         //create bottom
-        fixDef.shape.SetAsBox(wallCenterX / this.settings.scale, floorHeight / this.settings.scale);
-        bodyDef.position.Set(wallCenterX / this.settings.scale, (wallCenterY * 2 - wallWidth) / this.settings.scale);
+        fixDef.shape.SetAsBox(wallCenterX / Global.scale, floorHeight / Global.scale);
+        bodyDef.position.Set(wallCenterX / Global.scale, (wallCenterY * 2 - wallWidth) / Global.scale);
         this.world.CreateBody(bodyDef).CreateFixture(fixDef).SetUserData("floor");
     },
     addEntity: function(entity) {

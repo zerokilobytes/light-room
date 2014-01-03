@@ -35,7 +35,7 @@ ModelManager.prototype = {
     },
     updateArrow: function() {
         var dragConstant = 0.05;
-        var worldScale = this.context.settings.scale;
+        var worldScale = Global.scale;
 
         for (var i = this.arrowVector.length - 1; i >= 0; i--) {
             if (this.arrowVector[i].enabled) {

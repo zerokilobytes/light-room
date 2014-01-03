@@ -21,6 +21,8 @@ Global.world = {
     }
 };
 
+Global.scale = 60;
+
 Global.model = {
     spawnRate: 400,
     fireRate: 300

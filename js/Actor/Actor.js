@@ -18,8 +18,8 @@ Actor.prototype = {
     },
     update: function() {
         //this.skin.getBitmap().rotation = this.body.getDefinition().GetAngle() * (180 / Math.PI);
-        this.skin.getBitmap().x = this.body.getDefinition().GetWorldCenter().x * this.settings.scale;
-        this.skin.getBitmap().y = this.body.getDefinition().GetWorldCenter().y * this.settings.scale;
+        this.skin.getBitmap().x = this.body.getDefinition().GetWorldCenter().x * Global.scale;
+        this.skin.getBitmap().y = this.body.getDefinition().GetWorldCenter().y * Global.scale;
     },
     createSkin: function(image, positionVector, centerVector) {
         var skin = new EntitySkin(image, positionVector, centerVector, this.scaleVector);

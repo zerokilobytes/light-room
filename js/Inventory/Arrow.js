@@ -24,7 +24,7 @@ Arrow.prototype = {
     },
     spawn: function(mousePosition, bowPosition) {
         this.enabled = true;
-        var scale = this.context.settings.scale;
+        var scale = Global.scale;
 
         var angle = Math.atan2(mousePosition.y - bowPosition.y, mousePosition.x - bowPosition.x);
         var deltaX = Math.cos(angle) * 30;
@@ -105,7 +105,7 @@ Arrow.prototype = {
         return this.skin.getBitmap();
     },
     updateSkin: function() {
-        var scale = this.context.settings.scale;
+        var scale = Global.scale;
 
         this.skin.getBitmap().rotation = this.body.GetAngle() * (180 / Math.PI);
         this.skin.getBitmap().x = this.body.GetWorldCenter().x * scale;
