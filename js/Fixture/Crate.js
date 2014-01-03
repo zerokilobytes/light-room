@@ -1,7 +1,7 @@
 var Crate = function(context) {
     this.context = context;
     this.numEnterPoints = 0;
-    this.explosionCuts = 15;
+    this.explosionCuts = 25;
     this.explodingBodies = [];
     this.explosionRadius = 50;
     this.init();
@@ -35,8 +35,8 @@ Crate.prototype = {
         var crateCoordVector = [new b2Vec2(-50, -50), new b2Vec2(50, -50), new b2Vec2(50, 50), new b2Vec2(-50, 50)];
         // then createBody builds the final body and applies the bitmap.
         // the first two arguments are the X and Y position of the center of the crate, in pixels
-        this.createBody(95, 420, crateCoordVector, crateBitmap);
-
+        this.createBody(positionVector.x, positionVector.y, crateCoordVector, crateBitmap);
+        this.context.stage.update();
         // You can see the reason for creating the enterPointsVec in the coments in the intersection() method.
         enterPointsVec = [];
         enterPointsVec.length = this.numEnterPoints;
@@ -74,14 +74,15 @@ Crate.prototype = {
         fixtureDef.shape = boxDef;
         var tempBox = world.CreateBody(bodyDef);
         tempBox.SetUserData(new UserData(this.numEnterPoints, vec, texture));
+
         tempBox.CreateFixture(fixtureDef);
         this.numEnterPoints++;
 
-        this.body = tempBox;
+        return tempBox;
     },
     boom: function(e) {
         var _this = this;
-        console.log(e);
+
         var world = this.context.world;
         var cutAngle;
         explosionX = e.pageX;
@@ -93,7 +94,7 @@ Crate.prototype = {
 
             if (_this.explodingBodies.indexOf(fixture.GetBody()) !== -1) {
                 var spr = fixture.GetBody().GetUserData();
-                console.log(spr);
+                //console.log(spr);
                 if (spr) {
                     var userD = spr;
                     if (enterPointsVec[userD.id]) {
@@ -164,7 +165,7 @@ Crate.prototype = {
         tempVec.length = n;
         var C, D;
 
-        //vec.sort(comp1);
+        vec.sort(this.comp1);
         tempVec[0] = vec[0];
         C = vec[0];
         D = vec[n - 1];
@@ -273,6 +274,7 @@ Crate.prototype = {
             fixtureDef.shape = polyShape;
             bodyDef.userData = new UserData(origUserDataId, shape1Vertices, origUserData.texture);
             this.addChild(bodyDef.userData);
+
             enterPointsVec[origUserDataId] = null;
             body = world.CreateBody(bodyDef);
             body.SetAngle(sliceBody.GetAngle());
@@ -299,14 +301,40 @@ Crate.prototype = {
             this.explodingBodies.push(body);
         }
     },
+    comp1: function(a, b) {
+        // This is a compare function, used in the arrangeClockwise() method - a fast way to arrange the points in ascending order, according to their x-coordinate.
+        if (a.x > b.x) {
+            return 1;
+        }
+        else if (a.x < b.x) {
+            return -1;
+        }
+        return 0;
+    },
     removeChild: function(child) {
 
     },
     addChild: function(child) {
+        if (child !== null) {
 
+            this.context.stage.addChild(child.skin);
+            child.skin.x = 300;
+            child.skin.x = 300;
+            console.log(child.skin);
+        }
     },
     update: function() {
-        Entity.prototype.update.call(this);
+
+        var world = this.context.world;
+        for (var b = world.GetBodyList(); b; b = b.GetNext()) {
+            spr = b.GetUserData();
+            if (spr !== null && spr.type === "splinter") {
+                spr.skin.x = b.GetPosition().x * Global.scale;
+                spr.skin.y = b.GetPosition().y * Global.scale;
+                spr.skin.rotation = b.GetAngle() * 180 / Math.PI;
+            }
+        }
+        //Entity.prototype.update.call(this);
     },
     getSkin: function() {
         return Entity.prototype.getSkin.call(this);
@@ -318,15 +346,6 @@ Crate.prototype = {
         this.skin = EntitySkin.createBitmap(image, positionVector);
     },
     createEntityBody: function(postion) {
-        var scale = Global.scale;
-        var pos = new Vector2D(postion.x / scale, postion.y / scale);
-        var vec = new Vector2D((this.bodyVector.x / 2.0) / scale, (this.bodyVector.y / 2.0) / scale);
-
-        var body = EntityBody.getPolygonShape(this.context, pos, vec);
-
-        body.SetUserData(this);
-        body.SetAngle(postion.rotation);
-        this.body = body;
 
     },
     destroy: function() {
