@@ -1,5 +1,6 @@
 var Pendulum = function(context) {
     this.context = context;
+    this.mouseJoint = false;
     this.init();
 };
 
@@ -15,15 +16,31 @@ Pendulum.prototype = {
         this.spawn(positionVector);
     },
     spawn: function(positionVector) {
+        var _this = this;
         this.enabled = true;
-        //var image = Resource.get('bulb');
-
-        //this.createSkin(image, this.bodyVector);
         this.createEntityBody(positionVector);
 
-        //this.context.stage.addChild(this.skin);
-
         Entity.prototype.spawn.call(this);
+
+
+        MouseManager.up(this, function(e) {
+            //alert("1");
+        });
+
+        MouseManager.down(this, function(e) {
+            //alert("2");
+        });
+
+        MouseManager.move(this, function(e) {
+            if (MouseManager.isMousedown && !_this.mouseJoint) {
+
+                var body = MouseManager.getBody(e);
+                if (body)
+                {
+                    console.log(body);
+                }
+            }
+        });
     },
     update: function() {
         Entity.prototype.update.call(this);
@@ -36,9 +53,6 @@ Pendulum.prototype = {
     },
     createSkin: function(image, positionVector) {
         this.skin = EntitySkin.createBitmap(image, positionVector);
-    },
-    createEntityBody: function(postion) {
-        this.createWorld();
     },
     destroy: function() {
         Visual.Effects.displayToadExplosion(this.getAbsolutePosition());
