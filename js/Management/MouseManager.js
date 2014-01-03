@@ -58,31 +58,26 @@ MouseManager.move = function(context, callback) {
         }
     });
 };
+MouseManager.getBody = function(e, includeStatic) {
+    var _world = MouseManager.context.world;
+    var _mousePVec = new b2Vec2();
+    _mouseXWorldPhys = e.pageX / 60;
+    _mouseYWorldPhys = e.pageY / 60;
 
-MouseManager.getBody = function(e)
-{
-    var p = get_real(new b2Vec2(e.pageX / 60, e.pageY / 60));
-    mouse_x = p.x;
-    mouse_y = p.y;
-
-    // var mouse_x = e.screenX;
-    // var mouse_y = e.screenY;
-
-    var mouse_p = new b2Vec2(mouse_x, mouse_y);
+    _mousePVec.Set(_mouseXWorldPhys, _mouseYWorldPhys);
     var aabb = new b2AABB();
-
-    aabb.lowerBound.Set(mouse_x - 0.001, mouse_y - 0.001);
-    aabb.upperBound.Set(mouse_x + 0.001, mouse_y + 0.001);
+    aabb.lowerBound.Set(_mouseXWorldPhys - 0.001, _mouseYWorldPhys - 0.001);
+    aabb.upperBound.Set(_mouseXWorldPhys + 0.001, _mouseYWorldPhys + 0.001);
     var body = null;
+    var fixture;
 
     // Query the world for overlapping shapes.
     function GetBodyCallback(fixture)
     {
         var shape = fixture.GetShape();
-
-        if (fixture.GetBody().GetType() !== b2Body.b2_staticBody)
+        if (fixture.GetBody().GetType() !== b2Body.b2_staticBody || includeStatic)
         {
-            var inside = shape.TestPoint(fixture.GetBody().GetTransform(), mouse_p);
+            var inside = shape.TestPoint(fixture.GetBody().GetTransform(), _mousePVec);
             if (inside)
             {
                 body = fixture.GetBody();
@@ -91,11 +86,6 @@ MouseManager.getBody = function(e)
         }
         return true;
     }
-    MouseManager.context.world.QueryAABB(GetBodyCallback, aabb);
+    _world.QueryAABB(GetBodyCallback, aabb);
     return body;
 };
-
-function get_real(p) {
-    var height = MouseManager.context.settings.screeSize.height / 60;
-    return new b2Vec2(p.x + 0, height - p.y);
-}

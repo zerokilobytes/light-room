@@ -34,7 +34,7 @@ Pendulum.prototype = {
         MouseManager.move(this, function(e) {
             if (MouseManager.isMousedown && !_this.mouseJoint) {
 
-                var body = MouseManager.getBody(e);
+                var body = MouseManager.getBody(e,true);
                 if (body)
                 {
                     console.log(body);
