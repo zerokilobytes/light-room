@@ -32,15 +32,54 @@ Pendulum.prototype = {
         });
 
         MouseManager.move(this, function(e) {
+            var _world = _this.context.world;
+
+            _mouseXWorldPhys = e.pageX / 60;
+            _mouseYWorldPhys = e.pageY / 60;
+
             if (MouseManager.isMousedown && !_this.mouseJoint) {
 
-                var body = MouseManager.getBody(e,true);
-                if (body)
-                {
-                    console.log(body);
+                var body = MouseManager.getBody(e, true);
+                if (body) {
+                    //console.log(body);
+
+                    var md = new b2MouseJointDef();
+                    md.bodyA = _world.GetGroundBody();
+                    md.bodyB = body;
+                    md.target.Set(_mouseXWorldPhys, _mouseYWorldPhys);
+                    md.collideConnected = true;
+                    md.maxForce = 300.0 * body.GetMass();
+                    _this.mouseJoint = _world.CreateJoint(md);
+                    body.SetAwake(true);
+                    console.log(_mouseXWorldPhys);
                 }
             }
+
+            if (!MouseManager.isMousedown)
+            {
+                if (_this.mouseJoint) {
+                    _world.DestroyJoint(_this.mouseJoint);
+                    _this.mouseJoint = null;
+                }
+            }
+
+            if (_this.mouseJoint) {
+                var p2 = new b2Vec2(_mouseXWorldPhys, _mouseYWorldPhys);
+                _this.mouseJoint.SetTarget(p2);
+            }
         });
+    },
+    mouseDestroy: function() {
+        if (!Input.mouseDown && Input.isKeyPressed(68/*D*/))
+        {
+            var body = GetBodyAtMouse(true);
+
+            if (body)
+            {
+                _world.DestroyBody(body);
+                return;
+            }
+        }
     },
     update: function() {
         Entity.prototype.update.call(this);
