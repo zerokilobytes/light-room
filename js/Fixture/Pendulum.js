@@ -1,6 +1,5 @@
 var Pendulum = function(context) {
     this.context = context;
-
     this.init();
 };
 
