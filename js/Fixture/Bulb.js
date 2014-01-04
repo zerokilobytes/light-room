@@ -1,5 +1,6 @@
 var Bulb = function(context) {
     this.context = context;
+    this.type = "bulb";
     this.init();
 };
 
@@ -7,8 +8,7 @@ Bulb.prototype = {
     init: function() {
         Entity.prototype.init.call(this);
 
-        this.type = "enemy";
-        this.bodyVector = new Vector2D(154, 255);
+        this.bodyVector = null;
         this.canRotate = true;
     },
     show: function(positionVector) {
@@ -16,9 +16,11 @@ Bulb.prototype = {
     },
     spawn: function(positionVector) {
         this.enabled = true;
-        var image = Resource.get('bulb');
+        var image = Resource.get(this.type);
 
-        this.createSkin(image, this.bodyVector);
+        this.bodyVector = new Vector2D(image.width, image.height);
+
+        this.createSkin(image);
         this.createEntityBody(positionVector);
 
         this.context.stage.addChild(this.skin);
@@ -34,8 +36,8 @@ Bulb.prototype = {
     getBody: function() {
         return Entity.prototype.getBody.call(this);
     },
-    createSkin: function(image, positionVector) {
-        this.skin = EntitySkin.createBitmap(image, positionVector);
+    createSkin: function(image) {
+        this.skin = EntitySkin.createBitmap(image);
     },
     createEntityBody: function(postion) {
         var scale = Global.scale;

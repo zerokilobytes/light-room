@@ -23,8 +23,6 @@ MouseManager.register = function(context) {
     }).on("mouseup", function() {
         //$(this).removeClass("mouseDown");
     });
-
-    console.log(MouseManager.gameCanvas);
 };
 
 MouseManager.down = function(context, callback) {

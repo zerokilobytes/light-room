@@ -8,7 +8,7 @@ function handleComplete() {
     gameContext = new GameContext(settings, test1);
     gameContext.start();
     
-    //gameContext.toggleDebug(true);
+    gameContext.toggleDebug(true);
 
     //createjs.Ticker.setFPS(Global.FPS);
     createjs.Ticker.useRAF = true;

@@ -4,20 +4,13 @@ var EntitySkin = function() {
 EntitySkin.prototype = {
 };
 
-EntitySkin.createBitmap = function(image, positionVector) {
+EntitySkin.createBitmap = function(image) {
     var bitmap = new createjs.Bitmap(image);
-    var scaleVector = {x: 1, y: 1};
+    var vec = new Vector2D(image.width, image.height);
 
-    //Initialize Bitmap
-    bitmap.x = positionVector.x;
-    bitmap.y = positionVector.y;
-    bitmap.regX = positionVector.x / 2;
-    bitmap.regY = positionVector.y / 2;
+    bitmap.regX = vec.x / 2;
+    bitmap.regY = vec.y / 2;
     bitmap.snapToPixel = true;
     bitmap.mouseEnabled = true;
-
-    //Scale Image
-    //bitmap.scaleX = scaleVector.x;
-    //bitmap.scaleY = scaleVector.y;
     return bitmap;
 };

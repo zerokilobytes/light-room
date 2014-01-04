@@ -90,7 +90,7 @@ Crate.prototype = {
         var cutAngle;
         explosionX = e.pageX;
         explosionY = e.pageY;
-
+        var enterPointsVec = [];
 
 
         var intersection = function(fixture, point, normal, fraction) {
@@ -116,7 +116,7 @@ Crate.prototype = {
         var clickedBody = MouseManager.getBodyAtXY(new b2Vec2(explosionX / Global.scale, explosionY / Global.scale));
 
 
-        var data = clickedBody.GetUserData();
+        var data = clickedBody === null ? null : clickedBody.GetUserData();
         if (data !== null && (data.type === "crate" || data.type === "splinter")) {
             this.explodingBodies.push(clickedBody);
 

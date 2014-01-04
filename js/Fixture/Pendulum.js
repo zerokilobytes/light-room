@@ -8,7 +8,7 @@ Pendulum.prototype = {
     init: function() {
         Entity.prototype.init.call(this);
 
-        this.type = "enemy";
+        this.type = "pendulum";
         this.bodyVector = new Vector2D(154, 255);
         this.canRotate = false;
     },
