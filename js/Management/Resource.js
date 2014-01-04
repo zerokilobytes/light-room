@@ -23,3 +23,7 @@ Resource.load = function(manifest, handleComplete, handleFileLoad) {
 
 Resource.images = {
 };
+
+Resource.loadJson = function(filename, callback) {
+    $.getJSON(filename, callback);
+};
