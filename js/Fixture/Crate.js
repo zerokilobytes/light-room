@@ -1,7 +1,7 @@
 var Crate = function(context) {
     this.context = context;
     this.numEnterPoints = 0;
-    this.explosionCuts = 7;
+    this.explosionCuts = 11;
     this.explodingBodies = [];
     this.explosionRadius = 50;
     this.init();
@@ -12,7 +12,7 @@ Crate.prototype = {
         Entity.prototype.init.call(this);
 
         this.type = "enemy";
-        this.bodyVector = new Vector2D(100, 100);
+        this.bodyVector = new Vector2D(200, 200);
         this.canRotate = true;
     },
     show: function(positionVector) {
@@ -70,9 +70,9 @@ Crate.prototype = {
 
 
         var fixtureDef = new b2FixtureDef();
-        fixtureDef.density = 5000;
+        fixtureDef.density = 1;
         fixtureDef.friction = 1;
-        fixtureDef.restitution = 0;
+        fixtureDef.restitution = 0.01;
         fixtureDef.shape = boxDef;
         bodyDef.userData = new UserData(this.numEnterPoints, vec, texture, "crate");
         var tempBox = world.CreateBody(bodyDef);
