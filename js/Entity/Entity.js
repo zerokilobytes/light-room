@@ -13,9 +13,6 @@ Entity.prototype = {
     },
     update: function() {
         var scale = Global.scale;
-        var width = this.context.settings.screeSize.width;
-        var height = this.context.settings.screeSize.height;
-
         if (this.canRotate) {
             this.skin.rotation = this.body.GetAngle() * (180 / Math.PI);
         }

@@ -38,6 +38,8 @@ Pot.prototype = {
     },
     createSkin: function(image) {
         this.skin = EntitySkin.createBitmap(image);
+        //this.skin.scaleY = -1;
+        //this.skin.scaleX = -1;
     },
     createEntityBody: function(postion) {
         var _this = this;
@@ -73,15 +75,15 @@ Pot.prototype = {
                 var set = polygons[p];
 
                 for (var s = 0; s < set.length; s++) {
-                    vertices.push(new b2Vec2(set[s].x * 600 / Global.scale, set[s].y * 600 / Global.scale));
+                    vertices.push(new b2Vec2(set[s].x * (256 / Global.scale), set[s].y * (256 / Global.scale)));
                 }
                 var polygonShape = new b2PolygonShape();
-                polygonShape.SetAsArray(vertices, 4);
+                polygonShape.SetAsArray(vertices, vertices.length);
                 fixtureDef.shape = polygonShape;
                 body.CreateFixture(fixtureDef);
             }
             _this.body = body;
-
+            //body.SetAngle(0);
         };
         Resource.loadJson("assets/pot.json", callback);
     }

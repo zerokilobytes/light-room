@@ -17,7 +17,7 @@ test1 = {
 //        }
         {
             type: Pot,
-            data: {x: 300, y: 200, rotation: 90}
+            data: {x: 300, y: 200, rotation: 0}
         }
     ],
     actors: [],
