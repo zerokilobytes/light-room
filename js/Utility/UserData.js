@@ -9,6 +9,7 @@ var UserData = function(id, verticesVec, texture) {
 UserData.prototype = {
     init: function(id, verticesVec, texture) {
         var image = Resource.get('crate');
+        var bitmap = new createjs.Bitmap(image);
 
         this.id = id;
         this.texture = texture;
@@ -32,7 +33,7 @@ UserData.prototype = {
 
         //this.graphics.clear();
         //circle.graphics.beginStroke("#FFFFFF");
-        //circle.graphics.beginBitmapFill(image, "repeat", m);
+        //circle.graphics.beginBitmapFill(image, "no-repeat", m);
 
 
         circle.graphics.setStrokeStyle(1).beginStroke("red");
@@ -44,16 +45,20 @@ UserData.prototype = {
         circle.graphics.lineTo(verticesVec[0].x * Global.scale, verticesVec[0].y * Global.scale);
         circle.graphics.closePath();
 
-        stage.addChild(circle);
+
         //Update stage will render next frame
-        stage.update();
 
 
 
+        //
         //circle.x = image.width;
         //circle.y = image.height;
+        //circle.graphics.beginBitmapFill(image);
 
-        this.skin = circle;
+        stage.addChild(circle);
+        stage.update();
+        //bitmap.mask = circle;
+        this.skin = bitmap;
 
         /* this.graphics.beginBitmapFill(texture, m, true, true);
          this.graphics.moveTo(verticesVec[0].x * 30, verticesVec[0].y * 30);

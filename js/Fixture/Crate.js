@@ -312,7 +312,8 @@ Crate.prototype = {
         return 0;
     },
     removeChild: function(child) {
-
+        // console.log(child.skin);
+        this.context.stage.removeChild(child.skin);
     },
     addChild: function(child) {
         if (child !== null) {
@@ -320,7 +321,7 @@ Crate.prototype = {
             this.context.stage.addChild(child.skin);
             child.skin.x = 300;
             child.skin.x = 300;
-            console.log(child.skin);
+            //console.log(child.skin);
         }
     },
     update: function() {
