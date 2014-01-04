@@ -1,7 +1,7 @@
 var Crate = function(context) {
     this.context = context;
     this.numEnterPoints = 0;
-    this.explosionCuts = 25;
+    this.explosionCuts = 7;
     this.explodingBodies = [];
     this.explosionRadius = 50;
     this.init();
@@ -23,7 +23,7 @@ Crate.prototype = {
         this.enabled = true;
         var image = Resource.get('crate');
 
-        this.createSkin(image, this.bodyVector);
+        var skin = this.createSkin(image, this.bodyVector);
 //        this.createEntityBody(positionVector);
 //        this.context.stage.addChild(this.skin);
 //        Entity.prototype.spawn.call(this);
@@ -35,7 +35,7 @@ Crate.prototype = {
         var crateCoordVector = [new b2Vec2(-50, -50), new b2Vec2(50, -50), new b2Vec2(50, 50), new b2Vec2(-50, 50)];
         // then createBody builds the final body and applies the bitmap.
         // the first two arguments are the X and Y position of the center of the crate, in pixels
-        this.createBody(positionVector.x, positionVector.y, crateCoordVector, crateBitmap);
+        this.crate = this.createBody(positionVector.x, positionVector.y, crateCoordVector, crateBitmap, "crate");
         this.context.stage.update();
         // You can see the reason for creating the enterPointsVec in the coments in the intersection() method.
         enterPointsVec = [];
@@ -44,6 +44,8 @@ Crate.prototype = {
         MouseManager.down(this, function(e) {
             _this.boom(e);
         });
+        //this.crate.GetUserData().type = "crate";
+        //this.crate.SetUserData({type: "crate", skin: crateBitmap});
     },
     det: function(x1, y1, x2, y2, x3, y3) {
         // This is a function which finds the determinant of a 3x3 matrix.
@@ -66,15 +68,16 @@ Crate.prototype = {
         bodyDef.position.Set(xPos / worldScale, yPos / worldScale);
         // custom userData used to map the texture
 
-        this.addChild(bodyDef.userData);
-        var fixtureDef = new b2FixtureDef();
-        fixtureDef.density = 1;
-        fixtureDef.friction = 0.2;
-        fixtureDef.restitution = 0.5;
-        fixtureDef.shape = boxDef;
-        var tempBox = world.CreateBody(bodyDef);
-        tempBox.SetUserData(new UserData(this.numEnterPoints, vec, texture));
 
+        var fixtureDef = new b2FixtureDef();
+        fixtureDef.density = 5000;
+        fixtureDef.friction = 1;
+        fixtureDef.restitution = 0;
+        fixtureDef.shape = boxDef;
+        bodyDef.userData = new UserData(this.numEnterPoints, vec, texture, "crate");
+        var tempBox = world.CreateBody(bodyDef);
+
+        this.addChild(bodyDef.userData);
         tempBox.CreateFixture(fixtureDef);
         this.numEnterPoints++;
 
@@ -112,11 +115,9 @@ Crate.prototype = {
         // I am looking for a body under my mouse
         var clickedBody = MouseManager.getBodyAtXY(new b2Vec2(explosionX / Global.scale, explosionY / Global.scale));
 
-        if (clickedBody !== null) {
 
-            // storing the exploding bodies in a vector. I need to do it since I do not want other bodies
-            // to be affected by the raycast and explode
-
+        var data = clickedBody.GetUserData();
+        if (data !== null && (data.type === "crate" || data.type === "splinter")) {
             this.explodingBodies.push(clickedBody);
 
             // the explosion begins!
@@ -272,7 +273,7 @@ Crate.prototype = {
         if (this.getArea(shape1Vertices, shape1Vertices.length) >= 0.05) {
             polyShape.SetAsVector(shape1Vertices);
             fixtureDef.shape = polyShape;
-            bodyDef.userData = new UserData(origUserDataId, shape1Vertices, origUserData.texture);
+            bodyDef.userData = new UserData(origUserDataId, shape1Vertices, origUserData.texture, "splinter");
             this.addChild(bodyDef.userData);
 
             enterPointsVec[origUserDataId] = null;
@@ -288,7 +289,7 @@ Crate.prototype = {
         if (this.getArea(shape2Vertices, shape2Vertices.length) >= 0.05) {
             polyShape.SetAsVector(shape2Vertices);
             fixtureDef.shape = polyShape;
-            bodyDef.userData = new UserData(this.numEnterPoints, shape2Vertices, origUserData.texture);
+            bodyDef.userData = new UserData(this.numEnterPoints, shape2Vertices, origUserData.texture, "splinter");
             this.addChild(bodyDef.userData);
             enterPointsVec.push(null);
             this.numEnterPoints++;
@@ -312,16 +313,11 @@ Crate.prototype = {
         return 0;
     },
     removeChild: function(child) {
-        // console.log(child.skin);
         this.context.stage.removeChild(child.skin);
     },
     addChild: function(child) {
         if (child !== null) {
-
             this.context.stage.addChild(child.skin);
-            child.skin.x = 300;
-            child.skin.x = 300;
-            //console.log(child.skin);
         }
     },
     update: function() {
@@ -329,7 +325,7 @@ Crate.prototype = {
         var world = this.context.world;
         for (var b = world.GetBodyList(); b; b = b.GetNext()) {
             spr = b.GetUserData();
-            if (spr !== null && spr.type === "splinter") {
+            if (spr !== null && (spr.type === "splinter" || spr.type === "crate")) {
                 spr.skin.x = b.GetPosition().x * Global.scale;
                 spr.skin.y = b.GetPosition().y * Global.scale;
                 spr.skin.rotation = b.GetAngle() * 180 / Math.PI;
@@ -344,7 +340,7 @@ Crate.prototype = {
         return Entity.prototype.getBody.call(this);
     },
     createSkin: function(image, positionVector) {
-        this.skin = EntitySkin.createBitmap(image, positionVector);
+        return EntitySkin.createBitmap(image, positionVector);
     },
     createEntityBody: function(postion) {
 

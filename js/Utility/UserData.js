@@ -1,8 +1,8 @@
-var UserData = function(id, verticesVec, texture) {
+var UserData = function(id, verticesVec, texture, type) {
     this.id = null;
     this.texture = null;
     this.skin = null;
-    this.type = "splinter";
+    this.type = type;
     this.init(id, verticesVec, texture);
 };
 
@@ -19,21 +19,19 @@ UserData.prototype = {
 
         var stage = new createjs.Stage();
         //Create a Shape DisplayObject.
-        circle = new createjs.Shape();
+        shape = new createjs.Shape();
 
-        circle.graphics.beginBitmapFill(image);
+        shape.graphics.beginBitmapFill(image);
 
-        circle.graphics.moveTo(verticesVec[0].x * Global.scale, verticesVec[0].y * Global.scale);
+        shape.graphics.moveTo(verticesVec[0].x * Global.scale, verticesVec[0].y * Global.scale);
         for (var i = 1; i < verticesVec.length; i++) {
-            circle.graphics.lineTo(verticesVec[i].x * Global.scale, verticesVec[i].y * Global.scale);
+            shape.graphics.lineTo(verticesVec[i].x * Global.scale, verticesVec[i].y * Global.scale);
         }
-        circle.graphics.lineTo(verticesVec[0].x * Global.scale, verticesVec[0].y * Global.scale);
-        circle.graphics.closePath();
+        shape.graphics.lineTo(verticesVec[0].x * Global.scale, verticesVec[0].y * Global.scale);
+        shape.graphics.closePath();
 
-        stage.addChild(circle);
+        stage.addChild(shape);
         stage.update();
-        //bitmap.mask = circle;
-        this.skin = circle;
-
+        this.skin = shape;
     }
 };
