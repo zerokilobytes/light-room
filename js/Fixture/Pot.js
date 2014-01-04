@@ -53,37 +53,36 @@ Pot.prototype = {
         var vertices = [];
 
         var callback = function(json) {
-            var polygons = json.rigidBodies[0].polygons;
-            console.log(polygons);
-            for (var p = 0; p < polygons.length; p++) {
-                var set = polygons[p];
-                 
-                for (var s = 0; s < set.length; s++) {
-                    vertices.push(new b2Vec2(set[s].x * 600 / Global.scale, set[s].y * 600 / Global.scale));
-                }
-            }
-
             var bodyDef = new b2BodyDef();
 
             bodyDef.position.Set(postion.x / Global.scale, postion.y / Global.scale);
             bodyDef.type = b2Body.b2_dynamicBody;
             bodyDef.userData = _this;
 
-            var polygonShape = new b2PolygonShape();
-            polygonShape.SetAsVector(vertices, 4);
-            var fixtureDef = new b2FixtureDef();
-            fixtureDef.shape = polygonShape;
-            fixtureDef.density = 100;
-            fixtureDef.friction = 0.5;
-            fixtureDef.restitution = 0.1;
             var body = _this.context.world.CreateBody(bodyDef);
-            body.CreateFixture(fixtureDef);
 
+            var polygons = json.rigidBodies[0].polygons;
+            console.log(polygons);
+            for (var p = 0; p < polygons.length; p++) {
+                var fixtureDef = new b2FixtureDef();
+                fixtureDef.density = 100;
+                fixtureDef.friction = 0.5;
+                fixtureDef.restitution = 0.1;
+
+                vertices = [];
+                var set = polygons[p];
+
+                for (var s = 0; s < set.length; s++) {
+                    vertices.push(new b2Vec2(set[s].x * 600 / Global.scale, set[s].y * 600 / Global.scale));
+                }
+                var polygonShape = new b2PolygonShape();
+                polygonShape.SetAsArray(vertices, 4);
+                fixtureDef.shape = polygonShape;
+                body.CreateFixture(fixtureDef);
+            }
             _this.body = body;
-           
+
         };
-
         Resource.loadJson("assets/pot.json", callback);
-
     }
 };
