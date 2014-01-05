@@ -13,6 +13,7 @@ Entity.prototype = {
     },
     update: function() {
         var scale = Global.scale;
+        
         if (this.canRotate) {
             this.skin.rotation = this.body.GetAngle() * (180 / Math.PI);
         }
@@ -20,17 +21,6 @@ Entity.prototype = {
             this.skin.x = (this.body.GetWorldCenter().x * scale);
             this.skin.y = (this.body.GetWorldCenter().y * scale);
         }
-
-        /*if (this.type === "enemy") {
-         if (this.getAbsolutePosition().x < -10
-         || this.getAbsolutePosition().x > width + 10)
-         {
-         this.destroy();
-         } else if (this.getAbsolutePosition().y > height) {
-         this.context.removeLife(this.getAbsolutePosition());
-         this.destroy();
-         }
-         }*/
     },
     createSkin: function(image, positionVector, centerVector) {
 
