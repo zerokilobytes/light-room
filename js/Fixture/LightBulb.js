@@ -1,12 +1,12 @@
-var Pot = function(context) {
+var LightBulb = function(context) {
     this.context = context;
-    this.type = "pot";
+    this.type = "light_bulb";
     this.body = null;
     this.active = false;
     this.init();
 };
 
-Pot.prototype = {
+LightBulb.prototype = {
     init: function() {
         Entity.prototype.init.call(this);
 
@@ -70,7 +70,7 @@ Pot.prototype = {
                 var set = polygons[p];
 
                 for (var s = 0; s < set.length; s++) {
-                    vertices.push(new b2Vec2(set[s].x * (image.width / Global.scale), set[s].y * (image.height / Global.scale)));
+                    vertices.push(new b2Vec2(set[s].x * (image.width / Global.scale), set[s].y * (150 / Global.scale)));
                 }
 
                 var polygonShape = new b2PolygonShape();
@@ -81,6 +81,6 @@ Pot.prototype = {
             _this.body = body;
             _this.active = true;
         };
-        Resource.loadJson("assets/pot.json", callback);
+        Resource.loadJson("assets/light_bulb.json", callback);
     }
 };
