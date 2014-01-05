@@ -19,7 +19,7 @@ test1 = {
             type: LightBulb,
             data: {x: 300, y: 200, rotation: 0}
         }
-    ],
+    ], 
     actors: [],
     actions: [
         {
