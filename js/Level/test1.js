@@ -14,7 +14,7 @@ test1 = {
 //        {
 //            type: Crate,
 //            data: {x: 200, y: 100, rotation: 0}
-//        }
+//        },
         {
             type: LightBulb,
             data: {x: 300, y: 200, rotation: 0}
