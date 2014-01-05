@@ -25,5 +25,10 @@ Resource.images = {
 };
 
 Resource.loadJson = function(filename, callback) {
-    $.getJSON(filename, callback);
+    //$.getJSON(filename, callback);
+    jQuery.ajax({
+        url: filename,
+        success: callback,
+        async: false
+    });
 };

@@ -20,15 +20,15 @@ Integrator.prototype = {
         //this.creatFixtures(fixDef, bodyDef);
         var floorHeight = 10;
         //bottom
-        this.wall(this.settings.screeSize.width / 2, this.settings.screeSize.height - (floorHeight / 2), this.settings.screeSize.width, floorHeight);
+        //this.wall(this.settings.screeSize.width / 2, this.settings.screeSize.height - (floorHeight / 2), this.settings.screeSize.width, floorHeight);
         //right
-        this.wall(this.settings.screeSize.width - (floorHeight / 2), this.settings.screeSize.height / 2, floorHeight, this.settings.screeSize.height);
+        //this.wall(this.settings.screeSize.width - (floorHeight / 2), this.settings.screeSize.height / 2, floorHeight, this.settings.screeSize.height);
 
         //left
-        this.wall((floorHeight / 2), this.settings.screeSize.height / 2, floorHeight, this.settings.screeSize.height);
+        //this.wall((floorHeight / 2), this.settings.screeSize.height / 2, floorHeight, this.settings.screeSize.height);
 
         //top
-        this.wall(this.settings.screeSize.width / 2, (floorHeight / 2), this.settings.screeSize.width, floorHeight + floorHeight);
+        //this.wall(this.settings.screeSize.width / 2, (floorHeight / 2), this.settings.screeSize.width, floorHeight + floorHeight);
     },
     wall: function(pX, pY, w, h) {
         var worldScale = Global.scale;

@@ -65,4 +65,5 @@ var Joints = Box2D.Dynamics.Joints;
 
 var b2WeldJointDef = Box2D.Dynamics.Joints.b2WeldJointDef;
 var b2RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef;
-var b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef;
+var b2MouseJointDef = Box2D.Dynamics.Joints.b2MouseJointDef;
+var b2DistanceJointDef = Box2D.Dynamics.Joints.b2DistanceJointDef;
