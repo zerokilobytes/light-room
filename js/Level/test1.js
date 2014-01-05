@@ -17,7 +17,7 @@ test1 = {
 //        },
         {
             type: Lamp,
-            data: {x: 300, y: 100, rotation: 0}
+            data: {x: 300, y: -110, rotation: 0}
         }
     ], 
     actors: [],

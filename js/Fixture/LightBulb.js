@@ -79,6 +79,7 @@ LightBulb.prototype = {
                 body.CreateFixture(fixtureDef);
             }
             _this.body = body;
+            _this.body.SetAngle(postion.rotation);
             _this.active = true;
         };
         Resource.loadJson("assets/light_bulb.json", callback);

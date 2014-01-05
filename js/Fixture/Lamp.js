@@ -64,10 +64,12 @@ Lamp.prototype = {
         return b;
     },
     update: function() {
-        if (this.active === true) {
-            Entity.prototype.update.call(this);
-        }
-         this.bulb.update();
+        Entity.prototype.update.call(this);
+        this.skin.x = 50;
+        this.skin.y = 200;
+        this.skin.scaleY = -1;
+        
+        this.bulb.update();
     },
     getSkin: function() {
         return Entity.prototype.getSkin.call(this);
@@ -77,10 +79,7 @@ Lamp.prototype = {
     },
     createSkin: function(image) {
         this.skin = EntitySkin.createBitmap(image);
-        //bitmap.regX = vec.x / 2;
-        //bitmap.regY = vec.y / 2;
-        // this.skin.scaleX = -1;
-        this.skin.scaleY = -1;
+        //this.skin.scaleY = -1;
     },
     createBox: function(world, x, y, width, height, options) {
         //default setting
@@ -121,10 +120,10 @@ Lamp.prototype = {
         var height = 60;
 
         var ball = this.createBall(world, postion.x / Global.scale, postion.y / Global.scale, 1, {type: b2Body.b2_staticBody});
-        var box = this.createBox(world, postion.x / Global.scale, postion.y / Global.scale, width / Global.scale, height / Global.scale, {type: b2Body.b2_dynamicBody});
+        //var box = this.createBox(world, postion.x / Global.scale, postion.y / Global.scale, width / Global.scale, height / Global.scale, {type: b2Body.b2_dynamicBody});
 
         this.bulb = new LightBulb(this.context);
-        this.bulb.spawn({x: 200, y: 160});
+        this.bulb.spawn({x: 200, y: 160, rotation: 90});
 
         distance_joint = new b2RevoluteJointDef();
         distance_joint.bodyA = ball;
@@ -134,16 +133,13 @@ Lamp.prototype = {
 
         //connect the centers - center in local coordinate - relative to body is 0,0
         distance_joint.localAnchorA = new b2Vec2(0, 0);
-        distance_joint.localAnchorB = new b2Vec2(1, 7);
+        distance_joint.localAnchorB = new b2Vec2(1, 9.8);
         //length of joint
         distance_joint.length = 6;
         distance_joint.enableMotor = false;
         distance_joint.referenceAngle = 0 * Math.PI / 3;
         distance_joint.collideConnected = false;
-
-        //distance_joint.Initialize(ball,  bulb.body,  bulb.body.GetWorldCenter());
-        // distance_joint.Initialize(ball, bulb.body, b2Vec2(0, 0), b2Vec2(0, 0));
-        //add the joint to the world
         world.CreateJoint(distance_joint);
+        this.body = ball;
     }
 };
