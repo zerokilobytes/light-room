@@ -1,4 +1,5 @@
 var gameContext;
+var fullScreen = false;
 function init() {
     Resource.load(manifest, handleComplete);
 }
@@ -30,15 +31,16 @@ $(document).ready(function() {
     });
 
     $(document).on('click', function() {
-        $(document).fullScreen(true);
-        $("#mainDiv").show();
-        $("#cover").hide();
+        if (!fullScreen) {
+            $(document).fullScreen(true);
+            $("#mainDiv").show();
+            $("#cover").hide();
 
-        $(document).bind("fullscreenchange", function() {
-            start();
-        });
-
-
+            $(document).bind("fullscreenchange", function() {
+                start();
+                fullScreen = true;
+            });
+        }
     });
 
     $("#debug").change(function() {
