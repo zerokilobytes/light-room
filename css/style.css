@@ -12,7 +12,7 @@ canvas#gameCanvas{
 
 
 *{ font-family: helvetica, arial;}
-html{}
+html{background-image:url('../images/wall.jpg'); cursor: pointer; cursor: hand;}
 html,body{ margin:0; padding:0; width: 100%;}
 
 #canvasContainer{ width: 800px; text-align: center; position:relative;float:left}
@@ -88,5 +88,23 @@ body
 {
     margin: 0;
     overflow: hidden;
-   background-image:url('../images/wall.jpg');
+}
+
+#cover {
+
+    font-size: 36px;
+    width: 300px;
+    height: 50px;
+    color: #CCC;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}
+#cover span {
+    font-family:serif,"Times New Roman", Times ;
 }

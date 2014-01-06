@@ -3,7 +3,6 @@ var LightBulb = function(context) {
     this.type = "light_bulb";
     this.body = null;
     this.active = false;
-    this.light = null;
     this.init();
 };
 
@@ -28,16 +27,7 @@ LightBulb.prototype = {
         this.createEntityBody(positionVector, image);
 
         this.context.stage.addChild(this.skin);
-
-        this.light = new Light(this.context);
-
         Entity.prototype.spawn.call(this);
-
-        var point = _this.getPoint();
-        this.light.show(point);
-        MouseManager.down(this, function(e) {
-
-        });
     },
     getPoint: function() {
         var x = this.skin.x;
@@ -70,7 +60,7 @@ LightBulb.prototype = {
             Entity.prototype.update.call(this);
         }
         var point = this.getPoint();
-        this.light.update(point);
+        Visual.Effects.castLight(point);
     },
     getSkin: function() {
         return Entity.prototype.getSkin.call(this);

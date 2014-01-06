@@ -23,14 +23,14 @@ Light.prototype = {
         stage.addChild(this.glow);
         this.updateCacheImage(false);
     },
-    show: function(position) {
+    render: function(position) {
 
         this.drawingCanvas.graphics.beginFill("rgba(0,0,0,0.09)").drawCircle(position.x, position.y, this.radius);
         this.updateCacheImage(true);
     },
     update: function(position) {
         this.drawingCanvas.graphics.clear();
-        this.show(position);
+        this.render(position);
     },
     updateCacheImage: function(update) {
         var stage = this.context.stage;

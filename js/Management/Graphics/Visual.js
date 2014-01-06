@@ -6,10 +6,12 @@ Visual.prototype = {
 };
 
 Visual.context = null;
+Visual.light = null;
 
 Visual.register = function(context) {
     Visual.context = context;
     Visual.Effects.loadToadExplosion();
+    Visual.light = new Light(context);
 };
 
 Visual.Effects = function() {
@@ -18,6 +20,10 @@ Visual.Effects = function() {
 
 Visual.Effects.prototype = {
 };
+
+Visual.Effects.castLight = function(position) {
+    Visual.light.update(position);
+}
 
 Visual.Effects.loadToadExplosion = function() {
     var spriteSheet = {"images": [Resource.loader.getResult("bulb")], "animations": {"jump": [10, 19], "boom": [0, 9]}, "frames": {"height": 94, "regX": 0, "count": 20, "regY": 0, "width": 96}};
