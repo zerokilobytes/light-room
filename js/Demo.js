@@ -15,9 +15,11 @@ function handleComplete() {
     createjs.Ticker.addListener(function() {
         gameContext.update();
     });
-    init2();
+    //init2();
+   // var light = new Light(gameContext);
+    //light.show(new Vector2D(0, 0));
 }
-;
+
 
 $(document).ready(function() {
     init();
@@ -41,87 +43,56 @@ $(document).ready(function() {
         gameContext.refreshSettings();
     });
 });
-
-var stage;
-var isDrawing;
-var drawingCanvas;
-var oldPt;
-var oldMidPt;
-var displayCanvas;
-var image;
-var maskFilter;
-var cursor;
-var text;
-var light;
-
-function init2() {
-    image = new Image();
-    image.onload = handleComplete2;
-    image.src = "images/white.png";
-
-    stage = gameContext.stage;
-}
-
-function handleComplete2() {
-
-    createjs.Touch.enable(gameContext.stage);
-    stage.enableMouseOver();
-
-    stage.addEventListener("stagemousedown", handleMouseDown);
-    stage.addEventListener("stagemouseup", handleMouseUp);
-    drawingCanvas = new createjs.Shape();
-    
-    light = new createjs.Bitmap(image);
-    light.filters = [new createjs.BlurFilter(15, 15, 2)];
-    light.cache(0, 0, gameContext.settings.screeSize.width, gameContext.settings.screeSize.height);
-    light.alpha = 0.5;
-
-
-    stage.addChild(light);
-    updateCacheImage(false);
-
-    cursor = new createjs.Shape(new createjs.Graphics().beginFill("#FFFFFF").drawCircle(0, 0, 50));
-    cursor.cursor = "pointer";
-}
-
-function handleMouseDown(event) {
-    oldPt = new createjs.Point(stage.mouseX, stage.mouseY);
-    oldMidPt = oldPt;
-    isDrawing = true;
-
-    handleMouseMove(event);
-}
-
-function handleMouseMove(event) {
-    if (!isDrawing) {
-        stage.update();
-        return;
-    }
-    drawingCanvas.graphics.beginFill("rgba(0,0,0,0.12)").drawCircle(stage.mouseX, stage.mouseY, 100);
-    updateCacheImage(true);
-}
-
-function handleMouseUp(event) {
-    updateCacheImage(true);
-    isDrawing = false;
-}
-
-function updateCacheImage(update) {
-    if (update) {
-        drawingCanvas.updateCache();
-    } else {
-        drawingCanvas.cache(0, 0, gameContext.settings.screeSize.width, gameContext.settings.screeSize.height);
-    }
-
-    maskFilter = new createjs.AlphaMaskFilter(drawingCanvas.cacheCanvas);
-
-    light.filters = [maskFilter];
-
-    if (update) {
-        light.updateCache(0, 0, gameContext.settings.screeSize.width, gameContext.settings.screeSize.height);
-    } else {
-        light.cache(0, 0, gameContext.settings.screeSize.width, gameContext.settings.screeSize.height);
-    }
-    light.sourceRect = new createjs.Rectangle(0, 0, gameContext.settings.screeSize.width, gameContext.settings.screeSize.height);
-    stage.update();
-}
+/*
+ var stage;
+ var drawingCanvas;
+ var light;
+ 
+ function init2() {
+ var image = Resource.get('white');
+ stage = gameContext.stage;
+ 
+ createjs.Touch.enable(gameContext.stage);
+ stage.enableMouseOver();
+ 
+ drawingCanvas = new createjs.Shape();
+ 
+ light = new createjs.Bitmap(image);
+ light.filters = [new createjs.BlurFilter(15, 15, 2)];
+ light.cache(0, 0, gameContext.settings.screeSize.width, gameContext.settings.screeSize.height);
+ light.alpha = 0.5;
+ 
+ 
+ stage.addChild(light);
+ updateCacheImage(false);
+ 
+ MouseManager.down(this, function(e) {
+ addLight(event);
+ });
+ }
+ function addLight() {
+ 
+ drawingCanvas.graphics.beginFill("rgba(0,0,0,0.12)").drawCircle(stage.mouseX, stage.mouseY, 100);
+ updateCacheImage(true);
+ }
+ 
+ function updateCacheImage(update) {
+ if (update) {
+ drawingCanvas.updateCache();
+ } else {
+ drawingCanvas.cache(0, 0, gameContext.settings.screeSize.width, gameContext.settings.screeSize.height);
+ }
+ 
+ var maskFilter = new createjs.AlphaMaskFilter(drawingCanvas.cacheCanvas);
+ 
+ light.filters = [maskFilter];
+ 
+ if (update) {
+ light.updateCache(0, 0, gameContext.settings.screeSize.width, gameContext.settings.screeSize.height);
+ } else {
+ light.cache(0, 0, gameContext.settings.screeSize.width, gameContext.settings.screeSize.height);
+ }
+ light.sourceRect = new createjs.Rectangle(0, 0, gameContext.settings.screeSize.width, gameContext.settings.screeSize.height);
+ stage.update();
+ }
+ */

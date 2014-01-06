@@ -3,6 +3,7 @@ var LightBulb = function(context) {
     this.type = "light_bulb";
     this.body = null;
     this.active = false;
+    this.light = null;
     this.init();
 };
 
@@ -17,6 +18,7 @@ LightBulb.prototype = {
         this.spawn(positionVector);
     },
     spawn: function(positionVector) {
+        var _this = this;
         this.enabled = true;
         var image = Resource.get(this.type);
 
@@ -27,12 +29,48 @@ LightBulb.prototype = {
 
         this.context.stage.addChild(this.skin);
 
+        this.light = new Light(this.context);
+
         Entity.prototype.spawn.call(this);
+
+        var point = _this.getPoint();
+        this.light.show(point);
+        MouseManager.down(this, function(e) {
+
+        });
+    },
+    getPoint: function() {
+        var x = this.skin.x;
+        var y = this.skin.y;
+
+        var angle = Math.atan2(y, x);
+
+        var deltaX = x + Math.cos(angle);
+        var deltaY = y + Math.sin(angle) * 220;
+        return new Vector2D(deltaX, deltaY);
+    },
+    addMarker: function(position) {
+        var stage = new createjs.Stage();
+        //Create a Shape DisplayObject.
+        circle = new createjs.Shape();
+        circle.graphics.beginFill("red").drawCircle(0, 0, 10);
+        //Set position of Shape instance.
+        circle.x = position.x;
+        circle.y = position.y;
+        circle.alpha = 0.2;
+        //Add Shape instance to stage display list.
+        stage.addChild(circle);
+        //Update stage will render next frame
+        stage.update();
+
+        return circle;
     },
     update: function() {
         if (this.active === true) {
             Entity.prototype.update.call(this);
         }
+        var point = this.getPoint();
+        this.light.update(point);
     },
     getSkin: function() {
         return Entity.prototype.getSkin.call(this);
