@@ -21,8 +21,9 @@ Visual.Effects = function() {
 Visual.Effects.prototype = {
 };
 
-Visual.Effects.castLight = function(position) {
-    Visual.light.update(position);
+Visual.Effects.castLight = function(position, radius) {
+    Visual.light.radius = radius;
+    Visual.light.update(position, radius);
 }
 
 Visual.Effects.loadToadExplosion = function() {

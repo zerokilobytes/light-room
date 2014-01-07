@@ -20,14 +20,28 @@ LightBulb.prototype = {
         var _this = this;
         this.enabled = true;
         var image = Resource.get(this.type);
-
         this.bodyVector = new Vector2D(image.width, image.height);
 
         this.createSkin(image);
+//
+//        this.skin.cache(0, 0, image.width, image.height);
+//        this.skin.snapToPixel = true;
+//
+//        this.skin.skewY = 50;
+//        //this.skin.x = ((image_width - 1) * i) * Math.cos(this.skin.skewY / 180 * Math.PI);
+//        this.skin.filters = [this.getColorMatrixFilter(this.skin.skewY)];
+//        this.skin.snapToPixel = true;
+//        this.skin.updateCache();
+
         this.createEntityBody(positionVector, image);
 
         this.context.stage.addChild(this.skin);
         Entity.prototype.spawn.call(this);
+    },
+    getColorMatrixFilter: function(value) {
+        var cm = new createjs.ColorMatrix();
+        cm.adjustBrightness(value * 0.75);
+        return new createjs.ColorMatrixFilter(cm);
     },
     getPoint: function() {
         var x = this.skin.x;
@@ -60,7 +74,7 @@ LightBulb.prototype = {
             Entity.prototype.update.call(this);
         }
         var point = this.getPoint();
-        Visual.Effects.castLight(point);
+        Visual.Effects.castLight(point, 500);
     },
     getSkin: function() {
         return Entity.prototype.getSkin.call(this);

@@ -4,7 +4,9 @@ function init() {
     Resource.load(manifest, handleComplete);
 }
 function handleComplete() {
-
+    $("#mainDiv").show();
+    $("#cover").hide();
+    start();
 }
 function start() {
     settings = new Settings(Global.gameSettings);
@@ -30,14 +32,14 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on('click', function() {
+    $(document).on('clickx', function() {
         if (!fullScreen) {
             $(document).fullScreen(true);
             $("#mainDiv").show();
             $("#cover").hide();
 
             $(document).bind("fullscreenchange", function() {
-                start();
+                //start();
                 fullScreen = true;
             });
         }

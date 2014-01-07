@@ -325,7 +325,8 @@ Crate.prototype = {
         var world = this.context.world;
         for (var b = world.GetBodyList(); b; b = b.GetNext()) {
             spr = b.GetUserData();
-            if (spr !== null && (spr.type === "splinter" || spr.type === "crate")) {
+            var type = (spr === undefined || spr === null) ? '' : spr.type;
+            if (spr !== null && (type === "splinter" || type === "crate")) {
                 spr.skin.x = b.GetPosition().x * Global.scale;
                 spr.skin.y = b.GetPosition().y * Global.scale;
                 spr.skin.rotation = b.GetAngle() * 180 / Math.PI;

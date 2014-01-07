@@ -16,10 +16,14 @@ test1 = {
 //            data: {x: 200, y: 100, rotation: 0}
 //        },
         {
+            type: AntiqueFrame,
+            data: {x: 800, y: 500, rotation: 0}
+        },
+        {
             type: Lamp,
             data: {x: 300, y: -110, rotation: 0}
         }
-    ], 
+    ],
     actors: [],
     actions: [
         {
