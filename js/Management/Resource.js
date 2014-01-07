@@ -24,11 +24,11 @@ Resource.load = function(manifest, handleComplete, handleFileLoad) {
 Resource.images = {
 };
 
-Resource.loadJson = function(filename, callback) {
+Resource.loadJson = function(filename, callback, async) {
     //$.getJSON(filename, callback);
     jQuery.ajax({
         url: filename,
         success: callback,
-        async: false
+        async: async
     });
 };

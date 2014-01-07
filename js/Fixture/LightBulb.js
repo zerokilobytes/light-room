@@ -110,6 +110,6 @@ LightBulb.prototype = {
             _this.body.SetAngle(postion.rotation);
             _this.active = true;
         };
-        Resource.loadJson("assets/light_bulb.json", callback);
+        Resource.loadJson("assets/light_bulb.json", callback, false);
     }
 };
