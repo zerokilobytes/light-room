@@ -24,7 +24,6 @@ AntiqueFrame.prototype = {
         this.enabled = true;
         var frame = Resource.get("frame");
         var background = Resource.get("mona_bg");
-        var mona1 = Resource.get("mona1");
 
         this.bodyVector = new Vector2D(frame.width, frame.height);
 
@@ -35,13 +34,6 @@ AntiqueFrame.prototype = {
         var bgBitmap = this.createSkin(background);
         bgBitmap.x = positionVector.x;
         bgBitmap.y = positionVector.y;
-
-        this.mona1Bitmap = this.createSkin(mona1);
-        this.mona1Bitmap.x = positionVector.x;
-        this.mona1Bitmap.y = positionVector.y;
-
-        //this.mona1Bitmap.skewX = -10;
-        //mona1Bitmap.skewY = 2;
 
         this.context.stage.addChild(bgBitmap);
 

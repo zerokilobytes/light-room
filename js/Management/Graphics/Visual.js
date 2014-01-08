@@ -27,13 +27,13 @@ Visual.Effects.castLight = function(position, radius) {
 }
 
 Visual.Effects.loadToadExplosion = function() {
-    var spriteSheet = {"images": [Resource.loader.getResult("bulb")], "animations": {"jump": [10, 19], "boom": [0, 9]}, "frames": {"height": 94, "regX": 0, "count": 20, "regY": 0, "width": 96}};
+    //var spriteSheet = {"images": [Resource.loader.getResult("bulb")], "animations": {"jump": [10, 19], "boom": [0, 9]}, "frames": {"height": 94, "regX": 0, "count": 20, "regY": 0, "width": 96}};
 
     // Spritesheet creation
-    var sheet = new createjs.SpriteSheet(spriteSheet);
+    //var sheet = new createjs.SpriteSheet(spriteSheet);
 
     // BitmaAnimation 
-    Visual.Effects.toadExplosion = new createjs.BitmapAnimation(sheet);
+    //Visual.Effects.toadExplosion = new createjs.BitmapAnimation(sheet);
 };
 
 Visual.Effects.displayToadExplosion = function(e) {

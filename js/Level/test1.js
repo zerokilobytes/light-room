@@ -15,6 +15,7 @@ test1 = {
 //            type: Crate,
 //            data: {x: 200, y: 100, rotation: 0}
 //        },
+
         {
             type: AntiqueFrame,
             data: {x: 800, y: 500, rotation: 0}
@@ -22,6 +23,10 @@ test1 = {
         {
             type: Lamp,
             data: {x: 300, y: -110, rotation: 0}
+        },
+        {
+            type: Curtain,
+            data: {x: 900, y: 370, rotation: 0}
         }
     ],
     actors: [],
