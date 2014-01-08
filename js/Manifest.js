@@ -1,5 +1,5 @@
 manifest = [
-    {src: "sounds/ave_maria.mp3", id: "ave_maria"},
+    //{src: "sounds/ave_maria.mp3", id: "ave_maria"},
     {src: "images/light_bulb.png", id: "light_bulb"},
     {src: "images/rope.png", id: "rope"},
     {src: "images/white.jpg", id: "white"},
