@@ -5,19 +5,25 @@ var Sound = function() {
 Sound.prototype = {
 };
 
-Sound.EXPLODE = "explode";
+Sound.AVE_MARIA = "ave_maria";
 
 Sound.context = null;
 
+Sound.preload = function(manifest) {
+    createjs.Sound.registerManifest(manifest);
+};
+
 Sound.register = function(context) {
     Sound.context = context;
-    createjs.Sound.registerManifest(manifest);
+
 };
 
 Sound.play = function(sound, complete) {
     //Play the sound: play (src, interrupt, delay, offset, loop, volume, pan)
     //var instance = createjs.Sound.play(9, createjs.Sound.INTERRUPT_NONE, 0, 0, false, 1);
-    var instance = createjs.Sound.play(sound);
+    var instance = createjs.Sound.play(sound, createjs.Sound.INTERRUPT_ALL, 0, 0, 0, 1);
+    //var instance = createjs.Sound.play(sound, true);
+    console.log(instance);
     if (instance === null || instance.playState === createjs.Sound.PLAY_FAILED) {
         return;
     }

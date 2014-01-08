@@ -6,6 +6,7 @@ var AntiqueFrame = function(context) {
     this.bulb = null;
     this.interval = 0;
     this.direction = 1;
+    this.monaSprite = null;
     this.init();
 };
 
@@ -20,7 +21,6 @@ AntiqueFrame.prototype = {
         this.spawn(positionVector);
     },
     spawn: function(positionVector) {
-        var _this = this;
         this.enabled = true;
         var frame = Resource.get("frame");
         var background = Resource.get("mona_bg");
@@ -44,41 +44,57 @@ AntiqueFrame.prototype = {
         //mona1Bitmap.skewY = 2;
 
         this.context.stage.addChild(bgBitmap);
-        this.context.stage.addChild(this.mona1Bitmap);
+
+        this.loadSprite();
+        this.monaSprite.x = positionVector.x - 170;
+        this.monaSprite.y = positionVector.y - 220;
+
         this.context.stage.addChild(frameBitmap);
 
+        this.play();
         Entity.prototype.spawn.call(this);
 
-        var timer = function move() {
-//            if (_this.lapse > 0 && _this.lapse % 2 === 0) {
-//                // console.log(_this.lapse);
-//            }
-//            else {
-//
-//            }
-
-            if (_this.interval >= 3) {
-                _this.direction = _this.direction * -1;
-            }
-
-            if (_this.interval <= -3) {
-                _this.direction = 1;
-            }
-
-            setTimeout(timer, 500);
-            _this.interval = _this.interval + _this.direction;
+        var play = function() {
+            Sound.play(Sound.AVE_MARIA, play);
         };
 
-        timer();
+        Sound.play(Sound.AVE_MARIA, play);
     },
     update: function() {
-        var sin = Math.sin(MathFunc.toRadiant(this.interval));
-        var cos = Math.cos(MathFunc.toRadiant(this.interval));
-        this.mona1Bitmap.skewY = sin * 100;
-        //this.mona1Bitmap.skewX = cos * 1 * this.direction;
+
     },
-    getSkin: function() {
-        return Entity.prototype.getSkin.call(this);
+    loadSprite: function() {
+        var spriteSheet =
+                {
+                    "images": [Resource.loader.getResult("mona_sprite")],
+                    "animations": {
+                        forward: {
+                            frames: [0, 1, 2, 3],
+                            next: "backward",
+                            frequency: 32
+                        },
+                        backward: {
+                            frames: [3, 2, 1, 0],
+                            next: "forward",
+                            frequency: 32
+                        }
+                    },
+                    "frames": {"width": 373, "height": 462, "regX": 0, "count": 4, "regY": 0}
+                };
+        // Spritesheet creation
+        var sheet = new createjs.SpriteSheet(spriteSheet);
+
+        // BitmaAnimation 
+        this.monaSprite = new createjs.BitmapAnimation(sheet);
+
+        // Display the smoke BitmapAnimation
+        this.context.stage.addChild(this.monaSprite);
+    },
+    play: function() {
+        var animation = "forward";
+
+        // Start the animation
+        this.monaSprite.gotoAndPlay(animation);
     },
     getBody: function() {
         return Entity.prototype.getBody.call(this);
