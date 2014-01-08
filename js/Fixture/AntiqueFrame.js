@@ -54,11 +54,7 @@ AntiqueFrame.prototype = {
         this.play();
         Entity.prototype.spawn.call(this);
 
-        var play = function() {
-            Sound.play(Sound.AVE_MARIA, play);
-        };
-
-        Sound.play(Sound.AVE_MARIA, play);
+       
     },
     update: function() {
 

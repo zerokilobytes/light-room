@@ -8,12 +8,11 @@ function handleComplete() {
     //$("#mainDiv").show();
     //$("#cover").hide();
     //start();
-}
-function start() {
     settings = new Settings(Global.gameSettings);
     settings.screeSize = Browser.getSize();
     gameContext = new GameContext(settings, test1);
-
+}
+function start() {
     gameContext.start();
 
     //createjs.Ticker.setFPS(Global.FPS);
@@ -33,12 +32,23 @@ $(document).ready(function() {
         }
     });
 
+
+
     $(document).on('click', function() {
         if (!fullScreen) {
+
+            var play = function() {
+                Sound.play(Sound.AVE_MARIA, play);
+            };
+
+            Sound.play(Sound.AVE_MARIA, play);
+
             $(document).fullScreen(true);
             $("#mainDiv").show();
             $("#cover").hide();
 
+
+            start();
             $(document).bind("fullscreenchange", function() {
                 start();
                 fullScreen = true;
@@ -46,7 +56,11 @@ $(document).ready(function() {
         }
     });
 
-   
+
+
+
+
+
 
     $("#debug").change(function() {
         gameContext.toggleDebug(this.checked);
