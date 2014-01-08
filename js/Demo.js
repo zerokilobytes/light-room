@@ -73,9 +73,12 @@ $(document).ready(function() {
         function loadHandler(event) {
             console.log("Sound Loaded");
             // This is fired for each sound that is registered.
-            var instance = createjs.Sound.play("ave_maria");  // play using id.  Could also use full source path or event.src.
-            instance.addEventListener("complete", createjs.proxy(this.handleComplete, this));
-            instance.volume = 0.5;
+            var play = function() {
+                Sound.play(Sound.AVE_MARIA, play);
+            };
+            Sound.play(Sound.AVE_MARIA, play);
+            //instance.addEventListener("complete", createjs.proxy(this.handleComplete, this));
+            //instance.volume = 0.5;
         }
     }
 
